@@ -1,0 +1,73 @@
+package com.jaysukh.messanger.model;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+
+@XmlRootElement //Using this annotation Jersey tell JAXB to convert into xml 
+public class Message {
+
+	
+	private long id;
+	private String message;
+	private Date created;
+	private String author;
+	
+	private Map<Long, Comment> comments = new HashMap<Long, Comment>();
+	
+	//When you have parameterized constructor you should have empty default constrcutor otherwise it will throws
+	//500 error
+	public Message()
+	{
+		
+	}
+	
+	public Message(long id, String message, String author) {
+		this.id = id;
+		this.message = message;
+		this.author = author;
+		this.created = new Date();
+	}
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	@XmlTransient // xmlTransient annotation Ignores comment object conversion in xml or in json representation, while Message conversion is happening
+	public Map<Long, Comment> getComments() {
+		
+		return comments;
+	}
+
+	public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
+	}
+	
+	
+	
+}
